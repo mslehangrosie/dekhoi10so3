@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MID-TERM TEST 3 (GRADE 10) - Ms Lê Hằng English</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Nunito', 'Quicksand', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d25b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SVG Pattern Overlay floating background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40l2.83 2.83-1.41 1.41L0 41.41l-2.83 2.83-1.41-1.41L-1.41 40l-2.83-2.83 1.41-1.41L0 38.59zM40 0l2.83 2.83-1.41 1.41L40 2.83l-1.41 1.41L35.76 1.41 38.59-1.41l-2.83-2.83 1.41-1.41L40-2.83l2.83-2.83 1.41 1.41L41.41 0zM40 80l2.83-2.83-1.41-1.41L40 77.17l-1.41-1.41-2.83 2.83 1.41 1.41L40 78.59l2.83 2.83 1.41-1.41L41.41 80zM80 40l-2.83 2.83-1.41-1.41L77.17 40l-1.41-1.41 2.83-2.83 1.41 1.41L78.59 40l2.83-2.83 1.41 1.41L80 40z'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3Cpath d='M15 15l4-4 2 2-4 4 4 4-2 2-4-4-4 4-2-2 4-4-4-4 2-2 4 4z'/%3E%3C/g%3E%3C/svg%3E");
+            animation: floatPattern 60s linear infinite;
+        }
+
+        @keyframes floatPattern {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
+        }
+
+        /* 3D Gamified Card Styles */
+        .card-gamified {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 12px 0 0 rgba(0, 0, 0, 0.15), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 3px solid #f0f0f0;
+        }
+
+        /* 3D Option Buttons */
+        .btn-option {
+            background-color: #ffffff;
+            border: 3px solid #e5e7eb;
+            border-bottom-width: 6px;
+            border-radius: 16px;
+            transition: all 0.15s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .btn-option:hover:not(.disabled) {
+            transform: translateY(-2px);
+            border-color: #93c5fd;
+            background-color: #f0f9ff;
+        }
+
+        .btn-option:active:not(.disabled) {
+            transform: translateY(3px);
+            border-bottom-width: 3px;
+        }
+
+        .btn-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            border-bottom-width: 6px !important;
+        }
+
+        .btn-option.wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            border-bottom-width: 6px !important;
+        }
+
+        /* Shake animation for wrong answer */
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+    </style>
+</head>
+<body class="py-6 px-3 sm:px-6 relative text-slate-800">
+    <div class="bg-pattern"></div>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto relative z-10 space-y-6">
+
+        <!-- HEADER SECTION -->
+        <header class="card-gamified p-4 sm:p-6 text-center space-y-3 border-b-8 border-purple-400">
+            <div class="inline-block bg-purple-100 text-purple-800 font-extrabold px-4 py-1.5 rounded-full text-xs sm:text-sm tracking-wide uppercase shadow-sm">
+                <i class="fa-solid fa-graduation-cap mr-1"></i> Giáo viên tạo: Ms Lê Hằng English
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-black text-purple-900 tracking-tight">
+                MID-TERM TEST 3 (GRADE 10)
+            </h1>
+
+            <p class="text-xs sm:text-sm font-bold text-pink-600 bg-pink-50 p-2.5 rounded-xl border border-pink-200">
+                <i class="fa-solid fa-star text-yellow-400 mr-1"></i>
+                Đăng ký học tiếng Anh 1-12, IELTS vui lòng liên hệ Ms Lê Hằng, Zalo: <span class="underline font-black text-pink-700">0584 965 348</span>
+            </p>
+        </header>
+
+        <!-- WARNING ALERT BOX -->
+        <div class="bg-gradient-to-r from-amber-400 to-orange-400 p-1 rounded-2xl shadow-lg transform transition hover:scale-[1.01]">
+            <div class="bg-amber-50 p-4 rounded-xl border-2 border-amber-300">
+                <div class="flex items-center space-x-2 text-amber-900 font-black text-sm sm:text-base mb-1">
+                    <span class="text-xl">⚠️</span>
+                    <span>LỜI NHẮC CỰC KỲ QUAN TRỌNG</span>
+                    <span class="text-xl">⚠️</span>
+                </div>
+                <p class="text-xs sm:text-sm text-amber-900 font-bold leading-relaxed">
+                    Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+                    <span class="text-red-600 font-black underline">Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!</span><br>
+                    <i class="fa-solid fa-hand-point-right text-amber-600 mr-1 mt-1"></i> Kéo tới đâu, làm tới đó! *
+                </p>
+            </div>
+        </div>
+
+        <!-- PROGRESS & SCORE COUNTER STICKY BAR -->
+        <div class="sticky top-3 z-30 card-gamified p-3 sm:p-4 flex items-center justify-between shadow-xl border-4 border-indigo-200">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-black text-lg">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <div class="text-xs text-gray-500 font-bold uppercase">Tiến độ</div>
+                    <div class="text-sm sm:text-base font-black text-indigo-900" id="progress-text">0 / 40 câu</div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="hidden sm:block flex-1 mx-6 bg-gray-200 h-4 rounded-full overflow-hidden border border-gray-300">
+                <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-green-500 h-full w-0 transition-all duration-300"></div>
+            </div>
+
+            <div class="flex items-center space-x-2 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+                <i class="fa-solid fa-trophy text-amber-500 text-xl"></i>
+                <div>
+                    <div class="text-[10px] text-emerald-600 font-bold uppercase">Đúng</div>
+                    <div class="text-sm sm:text-base font-black text-emerald-700" id="score-text">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTIONS CONTAINER -->
+        <div id="questions-container" class="space-y-8">
+            <!-- Questions rendered via JS -->
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <div class="text-center pt-6 pb-12">
+            <button id="submit-btn" onclick="submitExam()" class="bg-gradient-to-r from-emerald-500 to-green-600 text-white font-black text-xl px-10 py-4 rounded-2xl shadow-xl hover:from-emerald-600 hover:to-green-700 transform hover:scale-105 active:scale-95 transition border-b-8 border-green-800 flex items-center justify-center mx-auto space-x-3">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>NỘP BÀI & XEM KẾT QUẢ</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- RESULT MODAL POPUP -->
+    <div id="result-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="card-gamified max-w-md w-full p-6 text-center space-y-5 animate-bounce-in border-4 border-purple-400">
+            <div class="w-20 h-20 mx-auto bg-purple-100 rounded-full flex items-center justify-center text-4xl text-purple-600 shadow-inner">
+                <i id="modal-icon" class="fa-solid fa-award"></i>
+            </div>
+
+            <h2 class="text-2xl font-black text-slate-800" id="modal-title">KẾT QUẢ BÀI THI</h2>
+
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <p class="text-sm font-bold text-slate-500">Số câu trả lời đúng:</p>
+                <p class="text-4xl font-black text-indigo-600 my-1"><span id="modal-score">0</span>/40</p>
+                <p class="text-xs font-semibold text-slate-400" id="modal-percent">(0%)</p>
+            </div>
+
+            <!-- Teacher Message -->
+            <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-300 text-left relative">
+                <span class="absolute -top-3 left-4 bg-amber-400 text-white font-black text-[10px] px-2 py-0.5 rounded-md uppercase tracking-wider">
+                    Ms Lê Hằng nhắn ngủi
+                </span>
+                <p class="text-sm font-bold text-amber-900 leading-relaxed mt-1" id="modal-message">
+                    ...
+                </p>
+            </div>
+
+            <button onclick="closeModal()" class="w-full bg-purple-600 text-white font-black py-3 rounded-xl shadow-lg hover:bg-purple-700 border-b-4 border-purple-900 transition">
+                XEM BÀI & ĐỌC GIẢI THÍCH
+            </button>
+        </div>
+    </div>
+
+    <!-- AUDIO GENERATOR VIA WEB AUDIO API -->
+    <script>
+        // Web Audio API Synthesizer for sound effects
+        const AudioFX = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+            playCorrect() {
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.3); // C6
+
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.5);
+            },
+            playWrong() {
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now); // A3
+                osc.frequency.setValueAtTime(196, now + 0.15); // G3
+                osc.frequency.setValueAtTime(164.81, now + 0.3); // E3
+
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.5);
+            }
+        };
+
+        // EXAM DATA (FULL 40 QUESTIONS)
+        const quizData = [
+            // SoundScape 2025 Passage Questions (1-6)
+            {
+                id: 1,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "Experience the revolutionary sound technology that will change your life forever! The innovative SoundScape 2025 transforms ordinary moments into extraordinary (1)________.",
+                question: "Question 1:",
+                options: ["A. memorial", "B. memorize", "C. memories", "D. memorable"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Sự chuyển đổi các khoảnh khắc bình thường thành những (1)________ phi thường.",
+                    translateOptions: "A. memorial (adj/n): đài kỷ niệm;\nB. memorize (v): ghi nhớ;\nC. memories (n): những kỷ niệm/ký ức;\nD. memorable (adj): đáng nhớ.",
+                    whyCorrect: "Sau tính từ 'extraordinary' ta cần một danh từ số nhiều làm tân ngữ cho giới từ 'into'. 'Memories' (những ký ức/kỷ niệm) hoàn toàn phù hợp về ngữ pháp và ngữ cảnh.",
+                    whyWrong: "A là danh từ chỉ đài tưởng niệm; B là động từ; D là tính từ."
+                }
+            },
+            {
+                id: 2,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "Our (2)________ delivers an immersive experience unlike anything you've heard before.",
+                question: "Question 2:",
+                options: ["A. premium sound quality", "B. sound premium quality", "C. premium quality sound", "D. quality sound premium"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "(2)________ của chúng tôi mang lại trải nghiệm đắm chìm chưa từng có.",
+                    translateOptions: "A. premium sound quality: chất lượng âm thanh cao cấp;\nB, C, D: Sai trật tự từ bổ nghĩa.",
+                    whyCorrect: "Cụm danh từ ghép 'premium sound quality' (premium [adj] + sound [n bổ nghĩa] + quality [n chính]) nghĩa là chất lượng âm thanh cao cấp.",
+                    whyWrong: "Các đáp án B, C, D sắp xếp trật tự từ không đúng quy tắc ngữ pháp tiếng Anh."
+                }
+            },
+            {
+                id: 3,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "SoundScape 2025, (3)________ by world-class engineers, brings music to life with crystal-clear precision.",
+                question: "Question 3:",
+                options: ["A. designing", "B. was designed", "C. which designed", "D. designed"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "SoundScape 2025, (3)________ bởi các kỹ sư hàng đầu thế giới, mang âm nhạc đến với cuộc sống...",
+                    translateOptions: "A. designing (V-ing: chủ động);\nB. was designed (chia động từ chính);\nC. which designed (mệnh đề quan hệ chủ động);\nD. designed (V-ed: rút gọn mệnh đề quan hệ bị động).",
+                    whyCorrect: "Mệnh đề quan hệ rút gọn ở dạng bị động (which was designed by...) thành 'designed by'.",
+                    whyWrong: "A và C sai vì SoundScape không tự thiết kế (bị động); B sai vì câu đã có động từ chính 'brings'."
+                }
+            },
+            {
+                id: 4,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "We connect customers (4)________ our experts for personalized sound experiences.",
+                question: "Question 4:",
+                options: ["A. for", "B. with", "C. to", "D. about"],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Chúng tôi kết nối khách hàng (4)________ các chuyên gia của chúng tôi...",
+                    translateOptions: "A. for: cho;\nB. with: với;\nC. to: tới;\nD. about: về.",
+                    whyCorrect: "Cấu trúc 'connect somebody WITH somebody' nghĩa là kết nối ai với ai.",
+                    whyWrong: "Các giới từ 'for', 'to', 'about' không đi với 'connect' trong ngữ cảnh kết nối đối tác/người dùng này."
+                }
+            },
+            {
+                id: 5,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "With SoundScape 2025, you'll be on (5)________ nine as you experience music like never before.",
+                question: "Question 5:",
+                options: ["A. cloud", "B. storm", "C. rainbow", "D. thunder"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Với SoundScape 2025, bạn sẽ ở trên (5)________ chín khi trải nghiệm âm nhạc...",
+                    translateOptions: "A. cloud: mây;\nB. storm: cơn bão;\nC. rainbow: cầu vồng;\nD. thunder: sấm sét.",
+                    whyCorrect: "Thành ngữ 'on cloud nine' có nghĩa là cực kỳ hạnh phúc, lâng lâng vui sướng.",
+                    whyWrong: "Không tồn tại thành ngữ 'on storm nine', 'on rainbow nine' hay 'on thunder nine'."
+                }
+            },
+            {
+                id: 6,
+                section: "SoundScape 2025: Melodies That Transform Your Reality",
+                passage: "(6)________ SoundScape 2025 is to unlock a universe of sound that transcends ordinary listening.",
+                question: "Question 6:",
+                options: ["A. Experiencing", "B. Experience", "C. To experience", "D. To experiencing"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "(6)________ SoundScape 2025 là mở ra một vũ trụ âm thanh vượt qua cách nghe thông thường.",
+                    translateOptions: "A. Experiencing: Việc trải nghiệm;\nB. Experience: Trải nghiệm (động từ nguyên thể/mệnh lệnh);\nC. To experience: Để trải nghiệm / Việc trải nghiệm;\nD. To experiencing: Sai ngữ pháp.",
+                    whyCorrect: "Cấu trúc 'To V + be + to V' dùng để chỉ mục đích hoặc làm chủ ngữ đứng đầu câu. 'To experience SoundScape 2025 is to unlock...'",
+                    whyWrong: "A không đi kèm tương xứng với cấu trúc 'is to unlock' ở vế sau; B là động từ nguyên mẫu; D sai ngữ pháp."
+                }
+            },
+
+            // Beyond Recycling Passage Questions (7-12)
+            {
+                id: 7,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "While recycling helps our planet, (7)________ solutions are now available to combat environmental challenges.",
+                question: "Question 7:",
+                options: ["A. the others", "B. other", "C. others", "D. another"],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Trong khi tái chế giúp ích cho hành tinh, các giải pháp (7)________ hiện đã có sẵn...",
+                    translateOptions: "A. the others: những cái còn lại (thay thế danh từ);\nB. other + danh từ số nhiều: những... khác;\nC. others: những cái khác (không đi kèm danh từ);\nD. another + danh từ số ít: một cái khác.",
+                    whyCorrect: "'Other' + danh từ số nhiều 'solutions' chỉ các giải pháp khác nói chung.",
+                    whyWrong: "A và C không đi trực tiếp trước danh từ 'solutions'; D đi với danh từ số ít."
+                }
+            },
+            {
+                id: 8,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "Our innovative company is (8)________ sustainable alternatives that go beyond traditional recycling methods.",
+                question: "Question 8:",
+                options: ["A. looking after", "B. looking over", "C. looking up", "D. looking into"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Công ty đổi mới của chúng tôi đang (8)________ các phương án thay thế bền vững...",
+                    translateOptions: "A. looking after: chăm sóc;\nB. looking over: xem qua, kiểm tra;\nC. looking up: tra cứu;\nD. looking into: nghiên cứu, tìm hiểu sâu.",
+                    whyCorrect: "Phrasal verb 'look into' nghĩa là nghiên cứu, xem xét kỹ lưỡng để tìm giải pháp.",
+                    whyWrong: "Look after (chăm sóc), look over (duyệt qua) và look up (tra từ điển) đều sai nghĩa ngữ cảnh."
+                }
+            },
+            {
+                id: 9,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "The biodegradability of our (9)________ ensures they return safely to nature after use.",
+                question: "Question 9:",
+                options: ["A. services", "B. companies", "C. products", "D. customers"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Khả năng phân hủy sinh học của các (9)________ của chúng tôi đảm bảo chúng trở về tự nhiên an toàn.",
+                    translateOptions: "A. services: dịch vụ;\nB. companies: công ty;\nC. products: sản phẩm;\nD. customers: khách hàng.",
+                    whyCorrect: "Chỉ có 'products' (sản phẩm) mới có thuộc tính 'biodegradability' (khả năng phân hủy sinh học).",
+                    whyWrong: "Dịch vụ, công ty hay khách hàng không thể tự phân hủy sinh học."
+                }
+            },
+            {
+                id: 10,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "(10)________ recycling, we offer comprehensive waste reduction programs for businesses.",
+                question: "Question 10:",
+                options: ["A. In addition to", "B. On top of", "C. In front of", "D. In spite of"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "(10)________ việc tái chế, chúng tôi cung cấp các chương trình giảm thiểu rác thải toàn diện...",
+                    translateOptions: "A. In addition to: Bên cạnh / Ngoài... ra;\nB. On top of: Trên đỉnh / Cộng thêm vào;\nC. In front of: Phía trước;\nD. In spite of: Mặc dù.",
+                    whyCorrect: "'In addition to + V-ing/N' nghĩa là ngoài/bên cạnh việc gì ra thì còn có thêm việc khác.",
+                    whyWrong: "B không chuẩn phong cách trang trọng của leaflet; C chỉ vị trí không gian; D chỉ sự tương phản."
+                }
+            },
+            {
+                id: 11,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "Our commitment to (11)________ drives everything we do, from product design to delivery.",
+                question: "Question 11:",
+                options: ["A. marketing", "B. technology", "C. profitability", "D. sustainability"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Cam kết của chúng tôi đối với (11)________ thúc đẩy mọi thứ chúng tôi làm...",
+                    translateOptions: "A. marketing: tiếp thị;\nB. technology: công nghệ;\nC. profitability: lợi nhuận;\nD. sustainability: sự bền vững.",
+                    whyCorrect: "Chủ đề đoạn văn là giải pháp môi trường nên 'sustainability' (sự bền vững) là từ khóa chính xác nhất.",
+                    whyWrong: "A, B, C không phản ánh đúng mục tiêu bảo vệ môi trường của bài viết."
+                }
+            },
+            {
+                id: 12,
+                section: "Beyond Recycling: Next-Gen Environmental Solutions",
+                passage: "A (12)________ of our customers have reduced their carbon footprint by 30% in just one year.",
+                question: "Question 12:",
+                options: ["A. handful", "B. lot", "C. majority", "D. number"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Một (12)________ khách hàng của chúng tôi đã giảm lượng dấu chân carbon...",
+                    translateOptions: "A. handful: một vài (số lượng nhỏ);\nB. lot: (phải có 'a lot of');\nC. majority: phần lớn / đại đa số;\nD. number: một số.",
+                    whyCorrect: "Cụm 'A majority of + N số nhiều' mang nghĩa 'Đại đa số', phù hợp để nhấn mạnh thành công quảng cáo.",
+                    whyWrong: "A mang nghĩa quá ít; B thiếu 'a'; D không nhấn mạnh được mức độ phổ biến bằng 'majority'."
+                }
+            },
+
+            // Dialogue & Paragraph Arrangement Questions (13-17)
+            {
+                id: 13,
+                section: "Arrangement of Utterances (Sắp xếp hội thoại)",
+                passage: "a. Emma: It's bright yellow, like the sun, and she has curly hair that bounces when she walks!\nb. Store Clerk: Don't worry, little one. What color is her shirt today?\nc. Emma: Excuse me, I can't find my mom. She was here just a minute ago.",
+                question: "Question 13: Sắp xếp các câu sau thành đoạn hội thoại hợp lý:",
+                options: ["A. b-c-a", "B. a-b-c", "C. c-b-a", "D. a-c-b"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Sắp xếp thứ tự giao tiếp giữa bé Emma và Nhân viên cửa hàng.",
+                    translateOptions: "A. b-c-a;\nB. a-b-c;\nC. c-b-a;\nD. a-c-b.",
+                    whyCorrect: "Trật tự c-b-a:\n- c: Emma mở lời nhờ trợ giúp vì lạc mẹ ('Excuse me...').\n- b: Nhân viên an ủi và hỏi đặc điểm áo của mẹ ('Don't worry... What color...').\n- a: Emma miêu tả chi tiết áo màu vàng tươi ('It's bright yellow...').",
+                    whyWrong: "Các phương án còn lại đảo lộn tính logic của câu mở đầu và câu trả lời."
+                }
+            },
+            {
+                id: 14,
+                section: "Arrangement of Utterances (Sắp xếp hội thoại)",
+                passage: "a. Maria: That's wonderful, and I think your garden spot gets more sun than mine does.\nb. Maria: Thank you for the offer, but I will try moving my plants to the sunny corner instead.\nc. Jack: I planted tomatoes last week, and they are already growing so fast!\nd. Jack: Let me know if you need help, and we can work together to make both our gardens beautiful!\ne. Jack: You can share my space if you want, because there is plenty of room for both of us.",
+                question: "Question 14: Sắp xếp câu thoại phù hợp giữa Maria và Jack:",
+                options: ["A. c-a-e-b-d", "B. c-b-d-a-e", "C. e-b-a-c-d", "D. a-b-d-e-c"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Sắp xếp đoạn hội thoại chia sẻ về làm vườn giữa Jack và Maria.",
+                    translateOptions: "A. c-a-e-b-d;\nB. c-b-d-a-e;\nC. e-b-a-c-d;\nD. a-b-d-e-c.",
+                    whyCorrect: "Thứ tự logic c-a-e-b-d:\n- c: Jack khoe trồng cà chua lớn nhanh.\n- a: Maria khen và so sánh ánh nắng góc vườn.\n- e: Jack đề nghị chia sẻ khoảng không gian.\n- b: Maria cảm ơn nhưng từ chối vì sẽ chuyển chậu cây.\n- d: Jack đề nghị sẵn sàng giúp đỡ khi cần.",
+                    whyWrong: "Các đáp án khác vi phạm luồng hội thoại đề nghị - phản hồi - chốt câu kết."
+                }
+            },
+            {
+                id: 15,
+                section: "Arrangement of Text (Sắp xếp thư/đoạn văn)",
+                passage: "Dear Sam,\na. Since you created that digital playlist of our childhood hits, I have been playing it every morning while I drink my coffee.\nb. When I heard our old favorite song yesterday, I felt like I was back in high school again.\nc. While modern technology makes finding old music easier than ever, nothing beats sharing nostalgic songs with a friend who understands why they matter.\nd. If you have time next weekend, we could meet at my place where we can listen to those classic tunes together.\ne. Although streaming services have millions of new songs, I still prefer the music we used to listen to when we were young.\nYour friend,\nLK",
+                question: "Question 15: Sắp xếp các câu trong bức thư:",
+                options: ["A. d-a-e-b-c", "B. e-c-b-a-d", "C. b-e-a-d-c", "D. a-e-d-b-c"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Sắp xếp thứ tự các câu a, b, c, d, e trong bức thư gửi Sam.",
+                    translateOptions: "A. d-a-e-b-c;\nB. e-c-b-a-d;\nC. b-e-a-d-c;\nD. a-e-d-b-c.",
+                    whyCorrect: "Trật tự chuẩn câu d-a-e-b-c thể hiện mạch cảm xúc logic từ lời rủ rê -> nhắc kỷ niệm playlist -> so sánh nhạc cũ/mới -> hồi tưởng thời cấp 3 -> đúc kết ý nghĩa tình bạn.",
+                    whyWrong: "Các phương án khác phá vỡ mạch nối kết ngữ nghĩa giữa các câu chuyển tiếp."
+                }
+            },
+            {
+                id: 16,
+                section: "Arrangement of Text (Sắp xếp đoạn văn)",
+                passage: "a. Research shows that patients who can see trees from their windows heal faster than those who only see buildings. Because our brains evolved in nature, they respond positively to these environments.\nb. Scientists have found that children who play outside regularly develop stronger attention skills than those who stay indoors. Since natural places have fewer distractions than screens, our brains can rest and recover.\nc. When people spend time in nature, their brains work better in many surprising ways. Although we live with technology everywhere, our minds need green spaces to stay healthy.\nd. If you want to improve your memory, you should try to spend at least twenty minutes outside each day where you can see plants or animals.\ne. Even a short walk in the park can reduce stress in our bodies, which helps us think more clearly. While some people take medicine for anxiety, nature offers a free solution that works well.",
+                question: "Question 16: Sắp xếp đoạn văn về lợi ích của thiên nhiên:",
+                options: ["A. a-e-c-b-d", "B. e-b-a-c-d", "C. b-a-c-e-d", "D. c-b-e-a-d"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Sắp xếp đoạn văn khoa học về tác động của thiên nhiên tới trí não.",
+                    translateOptions: "A. a-e-c-b-d;\nB. e-b-a-c-d;\nC. b-a-c-e-d;\nD. c-b-e-a-d.",
+                    whyCorrect: "Thứ tự c-b-e-a-d:\n- c: Câu chủ đề tổng quan (thiên nhiên giúp não hoạt động tốt hơn).\n- b: Bằng chứng 1 ở trẻ em.\n- e: Bằng chứng 2 ở việc đi dạo giảm stress.\n- a: Bằng chứng 3 ở bệnh nhân trong bệnh viện.\n- d: Lời khuyên kết luận cụ thể (dành 20 phút mỗi ngày).",
+                    whyWrong: "Các phương án khác đặt câu kết luận hoặc câu bằng chứng lên làm câu chủ đề không hợp lý."
+                }
+            },
+            {
+                id: 17,
+                section: "Arrangement of Text (Sắp xếp đoạn văn)",
+                passage: "a. When Alpha children use technology before they speak, parents worry about development. Although screens dominate their lives, these children still need human connection.\nb. Even young Alphas learn through quality digital content, which feeds their curious minds. While previous generations played outdoors, today's children experience different realities.\nc. If you want to connect with your Alpha child, try understanding their digital world. When parents show interest, children feel valued and communication improves.\nd. Research shows that children who have family talks develop stronger emotional skills. Because this generation faces unique challenges, parents must create safe sharing spaces.\ne. Parents who set limits help children develop better social skills than those who don't. Since Alphas know only digital worlds, they navigate technology with surprising ease.",
+                question: "Question 17: Sắp xếp đoạn văn về thế hệ trẻ Alpha:",
+                options: ["A. a-e-b-d-c", "B. a-c-b-a-d", "C. a-d-b-e-c", "D. a-b-c-e-d"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Sắp xếp đoạn văn về việc nuôi dạy trẻ thế hệ Alpha trong thời đại số.",
+                    translateOptions: "A. a-e-b-d-c;\nB. a-c-b-a-d;\nC. a-d-b-e-c;\nD. a-b-c-e-d.",
+                    whyCorrect: "Mạch lập luận a-e-b-d-c đi từ Nêu thực trạng lo lắng của cha mẹ (a) -> Giới hạn thiết bị (e) -> Mặt tích cực học tập (b) -> Vai trò giao tiếp gia đình (d) -> Lời khuyên kết nối (c).",
+                    whyWrong: "Các lựa chọn khác không tuân thủ mạch diễn dịch logic từ vấn đề đến giải pháp."
+                }
+            },
+
+            // Quantum Music Theory Passage Questions (18-22)
+            {
+                id: 18,
+                section: "Quantum Music Theory Passage",
+                passage: "Quantum music theory, a revolutionary approach... Composers (18)________ that challenge conventional harmony and rhythm...",
+                question: "Question 18:",
+                options: [
+                    "A. embrace this old tradition rarely perform songs",
+                    "B. which embrace these complex theories often reject rules",
+                    "C. who embrace this new paradigm often create pieces",
+                    "D. embraced these digital tools often produced works"
+                ],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Các nhà soạn nhạc (18)________ những người đón nhận mô hình mới này thường tạo ra các tác phẩm...",
+                    translateOptions: "A. đón nhận truyền thống cũ này hiếm khi biểu diễn;\nB. cái mà đón nhận các lý thuyết phức tạp này;\nC. những người đón nhận mô hình mới này thường tạo ra các tác phẩm;\nD. đã đón nhận các công cụ kỹ thuật số này.",
+                    whyCorrect: "Chủ ngữ chỉ người 'Composers' cần mệnh đề quan hệ 'who embrace...' bổ nghĩa, tiếp theo là động từ chính 'create pieces'.",
+                    whyWrong: "A sai logic nghĩa; B dùng đại từ 'which' cho người; D sai thì ngữ pháp."
+                }
+            },
+            {
+                id: 19,
+                section: "Quantum Music Theory Passage",
+                passage: "The quantum approach treats musical notes as probability waves rather than fixed points; consequently, (19)________.",
+                question: "Question 19:",
+                options: [
+                    "A. it removes complexity from musical structures",
+                    "B. it introduces indeterminacy into compositions",
+                    "C. it transforms harmony into predictable patterns",
+                    "D. it limits creativity within traditional forms"
+                ],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Phương pháp lượng tử coi các nốt nhạc là sóng xác suất... do đó (19)________.",
+                    translateOptions: "A. nó loại bỏ sự phức tạp khỏi cấu trúc âm nhạc;\nB. nó đưa tính vô định/không bất biến vào các sáng tác;\nC. nó biến đổi hòa âm thành các mô hình dự đoán được;\nD. nó giới hạn sự sáng tạo.",
+                    whyCorrect: "Khái niệm 'probability waves' (sóng xác suất) tương ứng với 'indeterminacy' (tính bất định/vô định).",
+                    whyWrong: "A, C, D đi ngược lại với bản chất của cơ học lượng tử trong sáng tác."
+                }
+            },
+            {
+                id: 20,
+                section: "Quantum Music Theory Passage",
+                passage: "Several prestigious music conservatories now offer courses in quantum music theory, recognizing its potential and (20)________.",
+                question: "Question 20:",
+                options: [
+                    "A. having rejected traditional theories from their programs",
+                    "B. eliminating creative approaches within their teaching",
+                    "C. having focused exclusively on historical composition methods",
+                    "D. incorporating advanced mathematical concepts into their curricula"
+                ],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "...nhận thức được tiềm năng của nó và (20)________.",
+                    translateOptions: "A. đã loại bỏ các lý thuyết truyền thống;\nB. loại bỏ các phương pháp sáng tạo;\nC. chỉ tập trung vào phương pháp lịch sử;\nD. kết hợp các khái niệm toán học nâng cao vào giáo trình.",
+                    whyCorrect: "Cấu trúc song song 'recognizing... and incorporating...' thể hiện việc tích hợp kiến thức toán học lượng tử vào giảng dạy.",
+                    whyWrong: "A, B, C mang nghĩa tiêu cực hoặc bác bỏ, không phù hợp ngữ cảnh phát triển giáo dục."
+                }
+            },
+            {
+                id: 21,
+                section: "Quantum Music Theory Passage",
+                passage: "The innovative techniques (21)________. New software tools that implement quantum algorithms for composition are being developed...",
+                question: "Question 21:",
+                options: [
+                    "A. which were created are limiting what we perceive about the connection between music and emotion",
+                    "B. being developed are transforming how we understand the relationship between sound and consciousness",
+                    "C. that scientists discover are confusing why we question the interaction between rhythm and memory",
+                    "D. having evolved are restricting how we analyze the correlation between frequency and perception"
+                ],
+                correct: 1,
+                explanation: {
+                    translateQuestion: " các kỹ thuật đổi mới (21)________ đang được phát triển đang thay đổi cách chúng ta hiểu về mối quan hệ giữa âm thanh và ý thức.",
+                    translateOptions: "A. hạn chế những gì chúng ta cảm nhận;\nB. đang được phát triển đang thay đổi cách chúng ta hiểu về mối quan hệ giữa âm thanh và ý thức;\nC. làm bối rối lý do;\nD. hạn chế cách phân tích.",
+                    whyCorrect: "Mệnh đề bổ nghĩa 'being developed' và vị ngữ 'are transforming...' thể hiện xu hướng tiến bộ tích cực.",
+                    whyWrong: "A, C, D mang ý nghĩa tiêu cực (limiting, confusing, restricting) sai lệch với văn phong bài viết."
+                }
+            },
+            {
+                id: 22,
+                section: "Quantum Music Theory Passage",
+                passage: "As technology continues to advance, quantum music theory stands at the intersection of art and science... (22)________.",
+                question: "Question 22:",
+                options: [
+                    "A. Traditional musical notation restricts completely the expression of quantum sound waves",
+                    "B. Simple mathematical equations convert randomly into visual art, color, and texture",
+                    "C. Complex quantum formulas transform directly into musical pitch, rhythm, and timbre",
+                    "D. Ancient harmonic principles translate poorly into electronic frequency, volume, and tone"
+                ],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "(22)________ Nếu có nhiều nhạc sĩ được đào tạo về vật lý lượng tử, lĩnh vực này sẽ còn mở rộng hơn nữa.",
+                    translateOptions: "A. Ký âm truyền thống hạn chế hoàn toàn...;\nB. Các phương trình toán học đơn giản chuyển đổi ngẫu nhiên...;\nC. Các công thức lượng tử phức tạp chuyển hóa trực tiếp thành cao độ, nhịp điệu và âm sắc âm nhạc;\nD. Các nguyên lý hòa âm cổ đại phiên dịch kém...",
+                    whyCorrect: "Khái quát đúng bản chất ứng dụng: các công thức lượng tử chuyển hóa thành thuộc tính âm nhạc (pitch, rhythm, timbre).",
+                    whyWrong: "A, B, D miêu tả sai khía cạnh chuyển hóa cốt lõi của bài đọc."
+                }
+            },
+
+            // Sixth Extinction Passage Questions (23-30)
+            {
+                id: 23,
+                section: "The Sixth Extinction Passage",
+                passage: "This affects things like plant pollination, clean water, and air quality. Extinction also means we lose possible medicines... The money cost is big too - we lose trillions of dollars each year.",
+                question: "Question 23: Which of the following is NOT mentioned as a result of extinction?",
+                options: ["A. Water pollution", "B. Loss of possible medicines", "C. Effects on plant pollination", "D. Economic costs (trillions of dollars)"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Điều nào sau đây KHÔNG được nhắc đến như là hậu quả của sự tuyệt chủng?",
+                    translateOptions: "A. Ô nhiễm nguồn nước;\nB. Mất đi các phương thuốc tiềm năng;\nC. Ảnh hưởng đến sự thụ phấn của thực vật;\nD. Chi phí kinh tế (hàng nghìn tỷ đô la).",
+                    whyCorrect: "Bài đọc đề cập ô nhiễm nước là NGUYÊN NHÂN do con người gây ra ('pollute air and water'), KHÔNG PHẢI là KẾT QUẢ của tuyệt chủng.",
+                    whyWrong: "B, C, D đều được liệt kê rõ ràng trong đoạn 2 làm hậu quả của sự tuyệt chủng."
+                }
+            },
+            {
+                id: 24,
+                section: "The Sixth Extinction Passage",
+                passage: "The Earth has seen five big extinction events in its history. Now, scientists say we are in the sixth extinction...",
+                question: "Question 24: The word \"extinction\" in paragraph 1 is OPPOSITE in meaning to ________.",
+                options: ["A. disappearance", "B. elimination", "C. destruction", "D. survival"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Từ \"extinction\" (sự tuyệt chủng) trong đoạn 1 TRÁI NGHĨA với từ nào?",
+                    translateOptions: "A. disappearance: sự biến mất;\nB. elimination: sự loại bỏ;\nC. destruction: sự tàn phá;\nD. survival: sự sống pře / sự tồn tại.",
+                    whyCorrect: "'Extinction' nghĩa là sự tuyệt chủng (biến mất hoàn toàn). Từ trái nghĩa hoàn toàn là 'survival' (sự sống sót, tồn tại).",
+                    whyWrong: "A, B, C đều là các từ đồng nghĩa hoặc cùng hướng nghĩa tiêu cực với extinction."
+                }
+            },
+            {
+                id: 25,
+                section: "The Sixth Extinction Passage",
+                passage: "Sadly, many people don't notice or care about this problem. They think extinction doesn't affect them, but it does affect everyone's life and health.",
+                question: "Question 25: The word \"them\" in paragraph 2 refers to ________.",
+                options: ["A. animals", "B. ecosystems", "C. people", "D. medicines"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Từ \"them\" trong đoạn 2 đề cập đến đối tượng nào?",
+                    translateOptions: "A. động vật;\nB. hệ sinh thái;\nC. con người (people);\nD. thuốc.",
+                    whyCorrect: "Thay thế cho danh từ số nhiều 'many people' ở câu phía trước: 'many people... think extinction doesn't affect them'.",
+                    whyWrong: "A, B, D không phải là chủ thể có nhận thức 'think' trong câu."
+                }
+            },
+            {
+                id: 26,
+                section: "The Sixth Extinction Passage",
+                passage: "Scientists have made ways to save endangered animals, like breeding programs and fixing damaged habitats.",
+                question: "Question 26: The word \"damaged\" in paragraph 3 could be best replaced by ________.",
+                options: ["A. destroyed", "B. harmed", "C. hurt", "D. broken"],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Từ \"damaged\" (bị tổn hại) trong đoạn 3 có thể thay thế tốt nhất bằng từ nào?",
+                    translateOptions: "A. destroyed: bị phá hủy hoàn toàn;\nB. harmed: bị tổn hại, hư hại;\nC. hurt: bị đau (thường dùng cho người/động vật);\nD. broken: bị vỡ, gãy.",
+                    whyCorrect: "Trong ngữ cảnh môi trường sống (habitats), 'damaged habitats' đồng nghĩa nhất với 'harmed habitats' (môi trường bị tổn hại).",
+                    whyWrong: "A mức độ quá nặng (hủy hoại hoàn toàn không thể sửa); C dùng cho thể xác; D dùng cho đồ vật cơ khí."
+                }
+            },
+            {
+                id: 27,
+                section: "The Sixth Extinction Passage",
+                passage: "Governments must make stronger environmental laws, Companies need to work in ways that don't harm nature.",
+                question: "Question 27: Which of the following best paraphrases the underlined sentence in paragraph 4?",
+                options: [
+                    "A. Officials should enforce current regulations on nature protection",
+                    "B. Leaders must invest more money in environmental conservation work",
+                    "C. Politicians should discuss new policies about ecological protection",
+                    "D. Authorities need to create stricter rules to protect the environment"
+                ],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Câu nào diễn đạt lại đúng nhất ý: \"Chính phủ phải đưa ra các luật môi trường mạnh mẽ hơn\"?",
+                    translateOptions: "A. Quan chức nên thực thi các quy định hiện tại;\nB. Các nhà lãnh đạo phải đầu tư nhiều tiền hơn;\nC. Các chính khách nên thảo luận chính sách mới;\nD. Chính quyền cần tạo ra các quy tắc nghiêm ngặt hơn (stricter rules) để bảo vệ môi trường.",
+                    whyCorrect: "'Governments' = 'Authorities'; 'make stronger laws' = 'create stricter rules'.",
+                    whyWrong: "A nói về luật hiện tại; B nói về tiền bạc; C mới dừng ở mức thảo luận."
+                }
+            },
+            {
+                id: 28,
+                section: "The Sixth Extinction Passage",
+                passage: "Read the full passage about the Sixth Extinction.",
+                question: "Question 28: Which of the following is TRUE according to the passage?",
+                options: [
+                    "A. The sixth extinction is happening faster than natural extinction rates.",
+                    "B. Past extinctions were caused by human activities like deforestation.",
+                    "C. Native communities cannot provide solutions to environmental issues.",
+                    "D. Scientists have successfully revived many species that became extinct."
+                ],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Thông tin nào sau đây là ĐÚNG theo bài đọc?",
+                    translateOptions: "A. Đợt tuyệt chủng thứ 6 đang diễn ra nhanh hơn tỷ lệ tự nhiên;\nB. Các đợt tuyệt chủng quá khứ do con người gây ra;\nC. Cộng đồng bản địa không thể đưa ra giải pháp;\nD. Các nhà khoa học đã hồi sinh thành công nhiều loài.",
+                    whyCorrect: "Đoạn 1 nêu: 'plants die out much faster than normal' (thực vật chết nhanh hơn nhiều so với mức bình thường/tự nhiên).",
+                    whyWrong: "B sai vì đợt tuyệt chủng quá khứ do thiên thạch/núi lửa; C sai vì bài viết khen kiến thức bản địa; D sai vì bài viết nói họ 'try to bring back' chứ chưa hồi sinh thành công nhiều loài."
+                }
+            },
+            {
+                id: 29,
+                section: "The Sixth Extinction Passage",
+                passage: "In which paragraph does the writer mention that the Sixth Extinction is different because humans are causing it?",
+                question: "Question 29:",
+                options: ["A. Paragraph 2", "B. Paragraph 4", "C. Paragraph 1", "D. Paragraph 3"],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Tác giả đề cập đến việc đợt tuyệt chủng thứ 6 khác biệt vì con người gây ra ở đoạn nào?",
+                    translateOptions: "A. Đoạn 2;\nB. Đoạn 4;\nC. Đoạn 1;\nD. Đoạn 3.",
+                    whyCorrect: "Đoạn 1 ghi rõ: 'Unlike past extinctions from asteroids or volcanoes, this one comes from human activities.'",
+                    whyWrong: "Đoạn 2 nói về hậu quả hệ sinh thái; Đoạn 3 nói về giải pháp khoa học; Đoạn 4 nói về hành động chính phủ."
+                }
+            },
+            {
+                id: 30,
+                section: "The Sixth Extinction Passage",
+                passage: "In which paragraph does the writer mention ways humans can help solve the extinction problem?",
+                question: "Question 30:",
+                options: ["A. Paragraph 4", "B. Paragraph 3", "C. Paragraph 2", "D. Paragraph 1"],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Tác giả đề cập các cách con người có thể giúp giải quyết vấn đề tuyệt chủng ở đoạn nào?",
+                    translateOptions: "A. Đoạn 4;\nB. Đoạn 3;\nC. Đoạn 2;\nD. Đoạn 1.",
+                    whyCorrect: "Đoạn 3 mở đầu bằng: 'The good news is that humans can help fix what we've damaged. Scientists have made ways to save endangered animals...'",
+                    whyWrong: "Đoạn 1 nêu thực trạng; Đoạn 2 nêu tác hại; Đoạn 4 nhấn mạnh luật pháp chung."
+                }
+            },
+
+            // Balancing Memories and Sustainability Passage Questions (31-40)
+            {
+                id: 31,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Family vacations in 2025 are a far cry from those of previous decades.",
+                question: "Question 31: The phrase \"a far cry from\" in paragraph 1 could be best replaced by ________.",
+                options: ["A. vary from", "B. depart from", "C. break from", "D. differ from"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Cụm từ \"a far cry from\" (khác xa với) trong đoạn 1 có thể thay thế tốt nhất bởi ________.",
+                    translateOptions: "A. vary from: thay đổi từ;\nB. depart from: khởi hành / đi lệch;\nC. break from: phá vỡ;\nD. differ from: khác biệt với.",
+                    whyCorrect: "Thành ngữ 'be a far cry from something' đồng nghĩa hoàn toàn với 'be completely different from / differ greatly from'.",
+                    whyWrong: "A, B, C không phản ánh đúng sắc thái khác biệt hoàn toàn của thành ngữ này."
+                }
+            },
+            {
+                id: 32,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Where in paragraph 2 does the following best fit?\n\"Sustainable accommodations have become the new normal for family trips.\"\n[I] Hotels proudly display green certifications... [II] Children enjoy interactive sustainability programs... [III] These experiences help young travelers understand... [IV] Families increasingly support local economies...",
+                question: "Question 32:",
+                options: ["A. [I]", "B. [II]", "C. [III]", "D. [IV]"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Vị trí nào [I], [II], [III], [IV] trong đoạn 2 phù hợp nhất cho câu: \"Chỗ ở bền vững đã trở thành chuẩn mực mới cho các chuyến đi gia đình.\"",
+                    translateOptions: "A. [I];\nB. [II];\nC. [III];\nD. [IV].",
+                    whyCorrect: "Đặt ở vị trí [I] làm câu chủ đề mở đầu cho đoạn 2, ngay trước câu miêu tả chi tiết các khách sạn ('Hotels proudly display green certifications...').",
+                    whyWrong: "Các vị trí [II], [III], [IV] nằm ở giữa đoạn đang triển khai các ý nhỏ chi tiết hơn."
+                }
+            },
+            {
+                id: 33,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Read paragraph 1 & 2 & 3 about travel options.",
+                question: "Question 33: Which of the following is NOT mentioned as a sustainable travel option in the passage?",
+                options: [
+                    "A. Train travel instead of flights",
+                    "B. Bicycle-sharing programs in destination cities",
+                    "C. Digital guidebooks instead of paper versions",
+                    "D. Virtual souvenirs instead of physical items"
+                ],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Lựa chọn nào KHÔNG được nhắc đến như một phương án du lịch bền vững trong bài?",
+                    translateOptions: "A. Đi tàu thay vì máy bay;\nB. Chương trình chia sẻ xe đạp ở các thành phố;\nC. Sách hướng dẫn kỹ thuật số thay cho bản giấy;\nD. Quà lưu niệm ảo thay cho đồ vật vật lý.",
+                    whyCorrect: "Chương trình đi xe đạp (Bicycle-sharing) hoàn toàn KHÔNG xuất hiện trong văn bản đọc.",
+                    whyWrong: "A được nhắc ở cuối đoạn 1 ('train travel over flights'); C & D được nhắc ở đoạn 3 ('digital guidebooks', 'virtual souvenirs')."
+                }
+            },
+            {
+                id: 34,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Read paragraph 3 about modern travel technology.",
+                question: "Question 34: Which of the following best summarises paragraph 3?",
+                options: [
+                    "A. Digital guidebooks and translation apps have completely replaced traditional travel resources, making family vacations more convenient but less authentic.",
+                    "B. Smart luggage with solar chargers represents the most important technological advancement for sustainable family travel in the modern tourism industry.",
+                    "C. Modern technology creates sustainable travel options that preserve memories while reducing environmental impact without compromising vacation quality.",
+                    "D. Virtual souvenirs and digital communication tools help families save money while traveling, making sustainable vacations more affordable for everyone."
+                ],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Câu nào tóm tắt tốt nhất nội dung đoạn 3?",
+                    translateOptions: "A. Sách kỹ thuật số thay thế hoàn toàn... làm giảm tính chân thực;\nB. Vali thông minh sạc pin mặt trời là tiến bộ quan trọng nhất;\nC. Công nghệ hiện đại tạo ra các lựa chọn du lịch bền vững giúp lưu giữ kỷ niệm đồng thời giảm tác động môi trường mà không đánh đổi chất lượng;\nD. Quà lưu niệm ảo giúp tiết kiệm tiền.",
+                    whyCorrect: "C bao quát trọn vẹn hai trụ cột chính được nêu ở đầu và cuối đoạn 3: lưu giữ kỷ niệm (memories) + giảm tác động môi trường (reduce environmental impact).",
+                    whyWrong: "A mang định kiến tiêu cực ('less authentic'); B quá đi vào chi tiết hẹp; D sai trọng tâm tiết kiệm tiền."
+                }
+            },
+            {
+                id: 35,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Smart luggage with built-in solar chargers eliminates disposable batteries.",
+                question: "Question 35: The word \"disposable\" in paragraph 3 is OPPOSITE in meaning to ________.",
+                options: ["A. consumable", "B. discardable", "C. temporary", "D. reusable"],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Từ \"disposable\" (dùng một lần rồi bỏ) trong đoạn 3 TRÁI NGHĨA với từ nào?",
+                    translateOptions: "A. consumable: có thể tiêu thụ;\nB. discardable: có thể vứt bỏ;\nC. temporary: tạm thời;\nD. reusable: có thể tái sử dụng.",
+                    whyCorrect: "'Disposable' (dùng 1 lần) trái nghĩa hoàn toàn với 'reusable' (có thể tái sử dụng nhiều lần).",
+                    whyWrong: "A, B, C đồng nghĩa hoặc không mang tính đối lập trực tiếp về thuộc tính tái sử dụng."
+                }
+            },
+            {
+                id: 36,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "These innovations help families reduce environmental impact without sacrificing their travel experience quality.",
+                question: "Question 36: The word \"their\" in paragraph 3 refers to ________.",
+                options: ["A. families", "B. destinations", "C. innovations", "D. souvenirs"],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Từ \"their\" trong đoạn 3 đề cập đến đối tượng nào?",
+                    translateOptions: "A. các gia đình (families);\nB. điểm đến;\nC. các đổi mới;\nD. quà lưu niệm.",
+                    whyCorrect: "'Their travel experience quality' = chất lượng trải nghiệm du lịch của CÁC GIA ĐÌNH ('families' ở đầu câu).",
+                    whyWrong: "Các từ B, C, D là danh từ chỉ vật/khái niệm, không thể sở hữu 'trải nghiệm du lịch'."
+                }
+            },
+            {
+                id: 37,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "The future of family travel looks promising as sustainability integrates into vacation planning.",
+                question: "Question 37: Which of the following best paraphrases the underlined sentence in paragraph 4?",
+                options: [
+                    "A. Vacation planning is becoming more complex as families struggle to incorporate sustainability into their travel decisions.",
+                    "B. The travel industry is forcing families to adopt sustainable practices, creating a positive outlook for environmental protection.",
+                    "C. Family travel will likely improve because sustainable practices are becoming essential components of trip organization.",
+                    "D. Future generations will benefit from the current trend of families prioritizing sustainability over enjoyment during vacations."
+                ],
+                correct: 2,
+                explanation: {
+                    translateQuestion: "Câu nào diễn đạt lại đúng nhất câu: \"Tương lai của du lịch gia đình hứa hẹn đầy triển vọng khi sự bền vững tích hợp vào việc lên kế hoạch kỳ nghỉ\"?",
+                    translateOptions: "A. Lên kế hoạch trở nên phức tạp do các gia đình chật vật;\nB. Ngành du lịch đang ép buộc các gia đình;\nC. Du lịch gia đình có khả năng sẽ tốt lên vì các thực hành bền vững đang trở thành thành tố thiết yếu;\nD. Thế hệ tương lai sẽ hưởng lợi từ việc đánh đổi niềm vui lấy sự bền vững.",
+                    whyCorrect: "'looks promising' = 'will likely improve'; 'integrates into vacation planning' = 'becoming essential components of trip organization'.",
+                    whyWrong: "A mang ý tiêu cực chật vật; B mang ý ép buộc; D mang ý sai lệch đánh đổi niềm vui."
+                }
+            },
+            {
+                id: 38,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Read the entire passage about family vacations.",
+                question: "Question 38: Which of the following is TRUE according to the passage?",
+                options: [
+                    "A. Schools are now requiring students to participate in sustainable travel as part of their formal environmental education curriculum.",
+                    "B. Sustainable travel options are becoming more accessible, though affordability remains a challenge for some families in 2025.",
+                    "C. Virtual reality technology allows families to experience destinations remotely, eliminating the need for physical travel altogether.",
+                    "D. International hotel chains have completely lost their market share as families exclusively choose community-owned accommodations."
+                ],
+                correct: 1,
+                explanation: {
+                    translateQuestion: "Khẳng định nào sau đây là ĐÚNG theo bài đọc?",
+                    translateOptions: "A. Các trường học hiện đang bắt buộc học sinh du lịch bền vững;\nB. Các lựa chọn du lịch bền vững đang trở nên dễ tiếp cận hơn, mặc dù khả năng chi trả vẫn là thách thức cho một số gia đình;\nC. Thực tế ảo loại bỏ hoàn toàn nhu cầu đi du lịch thực tế;\nD. Các chuỗi khách sạn quốc tế mất hoàn toàn thị phần.",
+                    whyCorrect: "Đoạn 4 ghi rõ: 'While challenges remain in making sustainable options affordable for all families, progress continues.'",
+                    whyWrong: "A sai vì trường học chỉ 'allowing excused absences' chứ không bắt buộc; C sai vì VR chỉ dùng để 'preview'; D dùng từ 'completely lost' là thổi phồng quá mức."
+                }
+            },
+            {
+                id: 39,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Children who take eco-conscious trips will likely continue these practices as adults.",
+                question: "Question 39: Which of the following can be inferred from the passage?",
+                options: [
+                    "A. Government regulations on tourism have forced travel companies to develop eco-friendly options despite consumer resistance.",
+                    "B. Traditional vacation experiences have been completely abandoned as families now prioritize education over enjoyment in travel.",
+                    "C. Families are willing to spend significantly more money on vacations if they include technology-based sustainability features.",
+                    "D. Sustainable travel habits formed in childhood will likely influence adult behavior and travel choices in future generations."
+                ],
+                correct: 3,
+                explanation: {
+                    translateQuestion: "Điều nào sau đây có thể ĐƯỢC SUY RA từ bài đọc?",
+                    translateOptions: "A. Quy định chính phủ ép buộc công ty du lịch phát triển tour sinh thái;\nB. Trải nghiệm du lịch truyền thống bị từ bỏ hoàn toàn;\nC. Các gia đình sẵn sàng chi nhiều tiền hơn hẳn;\nD. Thói quen du lịch bền vững hình thành từ thời thơ ấu có khả năng ảnh hưởng đến hành vi và lựa chọn khi trưởng thành.",
+                    whyCorrect: "Suy luận trực tiếp từ câu đoạn 4: 'Children who take eco-conscious trips will likely continue these practices as adults.'",
+                    whyWrong: "A, B, C đều đưa ra suy đoán cực đoan không có căn cứ trong bài."
+                }
+            },
+            {
+                id: 40,
+                section: "Balancing Memories and Sustainability Passage",
+                passage: "Read the full passage about balancing memories and sustainability in family travel.",
+                question: "Question 40: Which of the following best summarises the passage?",
+                options: [
+                    "A. Modern family vacations balance creating memories with environmental responsibility, using technology and sustainable accommodations while teaching future generations ecological values.",
+                    "B. Technology innovations have fundamentally transformed how families travel in 2025, with virtual reality replacing physical experiences while making travel more accessible to everyone.",
+                    "C. The tourism industry has shifted entirely to eco-friendly practices due to strict regulations, forcing families to compromise enjoyment for sustainability in their vacation choices.",
+                    "D. Educational travel has become the primary focus for families in 2025, with schools mandating sustainable trips as alternatives to traditional classroom environmental education."
+                ],
+                correct: 0,
+                explanation: {
+                    translateQuestion: "Câu nào tóm tắt đúng nhất toàn bộ bài đọc?",
+                    translateOptions: "A. Kỳ nghỉ gia đình hiện đại cân bằng giữa việc tạo kỷ niệm và trách nhiệm môi trường, sử dụng công nghệ và chỗ ở bền vững đồng thời giáo dục thế hệ tương lai;\nB. Đổi mới công nghệ thay thế hoàn toàn trải nghiệm thực tế;\nC. Ngành du lịch chuyển hoàn toàn sang sinh thái do luật nghiêm ngặt;\nD. Du lịch giáo dục trở thành trọng tâm chính do trường học bắt buộc.",
+                    whyCorrect: "A là câu tóm tắt xuất sắc nhất, chứa đủ các từ khóa trọng tâm: 'balance creating memories', 'environmental responsibility', 'technology', 'sustainable accommodations', 'future generations'.",
+                    whyWrong: "B, C, D đều chứa thông tin sai lệch hoặc tiêu cực hóa nội dung bài đọc."
+                }
+            }
+        ];
+
+        // USER ANSWERS STATE
+        let userAnswers = {};
+        let score = 0;
+
+        // RENDER ALL QUESTIONS ON PAGE LOAD
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'card-gamified p-5 sm:p-7 space-y-4';
+                card.id = `question-card-${q.id}`;
+
+                let passageHTML = '';
+                if (q.passage) {
+                    passageHTML = `
+                        <div class="bg-indigo-50/80 p-4 rounded-xl border border-indigo-100 text-xs sm:text-sm text-indigo-950 leading-relaxed font-medium">
+                            <span class="font-bold text-indigo-700 block mb-1">📖 Ngữ cảnh / Đoạn văn:</span>
+                            ${q.passage.replace(/\n/g, '<br>')}
+                        </div>
+                    `;
+                }
+
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <button 
+                            onclick="selectAnswer(${q.id}, ${optIdx})" 
+                            id="btn-${q.id}-${optIdx}"
+                            class="btn-option w-full text-left p-3.5 sm:p-4 text-xs sm:text-sm font-bold text-slate-700 flex items-center justify-between group">
+                            <span class="flex-1 mr-2">${opt}</span>
+                            <span id="icon-${q.id}-${optIdx}" class="w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-0 transition-opacity"></span>
+                        </button>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                        <span class="bg-purple-100 text-purple-800 text-xs font-black px-3 py-1 rounded-lg">
+                            ${q.section}
+                        </span>
+                        <span class="text-xs font-extrabold text-slate-400">Câu ${index + 1}/40</span>
+                    </div>
+
+                    ${passageHTML}
+
+                    <div class="text-sm sm:text-base font-extrabold text-slate-800 leading-snug">
+                        ${q.question}
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-3 pt-2">
+                        ${optionsHTML}
+                    </div>
+
+                    <!-- EXPLANATION BOX (HIDDEN UNTIL ANSWERED) -->
+                    <div id="explanation-${q.id}" class="hidden mt-5 bg-amber-50/90 border-2 border-amber-300 rounded-2xl p-4 text-xs sm:text-sm space-y-3 animate-fade-in shadow-sm">
+                        <div class="flex items-center space-x-2 text-amber-900 font-black text-sm border-b border-amber-200 pb-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500 text-base"></i>
+                            <span>GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG</span>
+                        </div>
+
+                        <div class="space-y-2 text-slate-800">
+                            <div>
+                                <span class="font-black text-amber-800">1. Dịch câu / đoạn:</span>
+                                <p class="text-slate-700 italic mt-0.5">${q.explanation.translateQuestion}</p>
+                            </div>
+
+                            <div>
+                                <span class="font-black text-amber-800">2. Từ vựng & Đáp án:</span>
+                                <pre class="whitespace-pre-wrap font-sans text-slate-700 bg-white/70 p-2.5 rounded-xl border border-amber-200 text-xs mt-0.5 leading-relaxed">${q.explanation.translateOptions}</pre>
+                            </div>
+
+                            <div>
+                                <span class="font-black text-emerald-700">3. Tại sao đúng?</span>
+                                <p class="text-emerald-900 font-medium bg-emerald-100/60 p-2 rounded-lg mt-0.5">${q.explanation.whyCorrect}</p>
+                            </div>
+
+                            <div>
+                                <span class="font-black text-rose-700">4. Tại sao các đáp án khác sai?</span>
+                                <p class="text-rose-900 font-medium bg-rose-100/60 p-2 rounded-lg mt-0.5">${q.explanation.whyWrong}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // HANDLE USER ANSWER SELECTION
+        function selectAnswer(questionId, selectedIdx) {
+            // Prevent re-answering
+            if (userAnswers[questionId] !== undefined) return;
+
+            const q = quizData.find(item => item.id === questionId);
+            userAnswers[questionId] = selectedIdx;
+
+            const isCorrect = (selectedIdx === q.correct);
+            const card = document.getElementById(`question-card-${questionId}`);
+
+            // Audio & visual feedback
+            if (isCorrect) {
+                AudioFX.playCorrect();
+                score++;
+                // Small particle celebration for individual correct answer
+                confetti({
+                    particleCount: 25,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            } else {
+                AudioFX.playWrong();
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 500);
+            }
+
+            // Style buttons
+            q.options.forEach((_, optIdx) => {
+                const btn = document.getElementById(`btn-${questionId}-${optIdx}`);
+                const icon = document.getElementById(`icon-${questionId}-${optIdx}`);
+                btn.classList.add('disabled');
+
+                if (optIdx === q.correct) {
+                    btn.classList.add('correct');
+                    icon.className = "w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-100 bg-green-500 text-white fa-solid fa-check";
+                } else if (optIdx === selectedIdx && !isCorrect) {
+                    btn.classList.add('wrong');
+                    icon.className = "w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-100 bg-red-500 text-white fa-solid fa-xmark";
+                }
+            });
+
+            // Show explanation automatically immediately
+            const expBox = document.getElementById(`explanation-${questionId}`);
+            expBox.classList.remove('hidden');
+
+            // Update Header Counter
+            updateCounter();
+        }
+
+        // UPDATE PROGRESS AND SCORE BAR
+        function updateCounter() {
+            const answeredCount = Object.keys(userAnswers).length;
+            document.getElementById('progress-text').innerText = `${answeredCount} / 40 câu`;
+            document.getElementById('score-text').innerText = `${score}`;
+
+            const percent = (answeredCount / 40) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+        }
+
+        // SUBMIT EXAM & SHOW MODAL
+        function submitExam() {
+            const total = quizData.length;
+            const percentage = Math.round((score / total) * 100);
+
+            document.getElementById('modal-score').innerText = score;
+            document.getElementById('modal-percent').innerText = `(${percentage}%)`;
+
+            const messageEl = document.getElementById('modal-message');
+            const iconEl = document.getElementById('modal-icon');
+
+            if (percentage < 50) {
+                iconEl.className = "fa-solid fa-heart-crack text-rose-500 text-4xl";
+                messageEl.innerText = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (percentage >= 50 && percentage <= 80) {
+                iconEl.className = "fa-solid fa-star-half-stroke text-amber-500 text-4xl";
+                messageEl.innerText = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                iconEl.className = "fa-solid fa-trophy text-yellow-500 text-4xl";
+                messageEl.innerText = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha!";
+                // Huge Confetti Celebration
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            document.getElementById('result-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('result-modal').classList.add('hidden');
+        }
+
+        // INIT ON LOAD
+        window.onload = function() {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
